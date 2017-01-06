@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:ads="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/scroll" 
+      android:scrollbars="none"
+      android:layout_width="fill_parent"
+      android:background="@drawable/background"
+      android:layout_height="wrap_content">
+
+      <LinearLayout 
+            android:id="@+id/container"
+            android:orientation="vertical" 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_tran">
+            
+            <!-- Nguyen Lieu -->
+            <TextView
+                android:id="@+id/lbnguyenlieu"
+                style="@style/header"
+                android:layout_marginTop="10dp"
+                android:text="@string/lb_nguyen_lieu" />
+            <!-- Noi dung Nguyen Lieu -->
+            <TextView
+                android:id="@+id/nguyenLieuId"
+                style="@style/content"/>
+            
+            <!-- Cach lam -->
+            <TextView
+                android:id="@+id/lbcachlam"
+                style="@style/header"
+                android:text="@string/lb_cach_lam"/>
+            <!-- Noi dung cach lam -->
+            <TextView
+                android:id="@+id/cachLamId"
+                style="@style/content"/>
+            
+            <!-- Anh minh hoa -->
+            <LinearLayout 
+            android:orientation="vertical" 
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shadow_content_v1">
+	            <ImageView
+	                android:id="@+id/imageMonan"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:scaleType="fitXY"
+	                android:contentDescription="@string/image_description"
+	                />
+            </LinearLayout>
+            <!-- <ImageView
+		        android:id="@+id/imageMonan"
+		        android:layout_width="230dp"
+		        android:layout_height="230dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+		        android:contentDescription="@string/image_description"
+		        android:background="@drawable/shadow_content_v1"
+		        /> -->
+            <!-- </LinearLayout> -->
+            
+            <!-- Nguon -->
+            <TextView
+                android:id="@+id/nguonTkId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/font_size_content"/>
+            
+            <!-- <LinearLayout
+		        android:orientation="horizontal"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="bottom"
+		        >
+		        <com.google.android.gms.ads.AdView
+		                android:id="@+id/adView"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content"
+		                ads:adSize="SMART_BANNER"
+		                ads:adUnitId="@string/banner_ad_unit_id"/>
+		    </LinearLayout> -->
+      
+      </LinearLayout>
+      
+    
+</ScrollView>
