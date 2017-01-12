@@ -1,8 +1,5 @@
 package com.vmcop.simplefour.monanngon;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +15,9 @@ import android.widget.GridView;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
@@ -31,7 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("==VINH_DEBUG==", "MainActivity");
+
 
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -73,6 +72,7 @@ public class MainActivity extends Activity {
                 if (beanPostArrayList != null) {
                     gridView.setAdapter(new ImageAdapter(MainActivity.this, beanPostArrayList));
                 }
+
             }
 
         }.execute();
@@ -83,9 +83,8 @@ public class MainActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-
                 showDialog(MainActivity.this, "", "Bạn muốn đóng ứng dụng?");
-
+                AppRater.app_launched(MainActivity.this);
                 return true;
         }
         return super.onKeyDown(keyCode, event);

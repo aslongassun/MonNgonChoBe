@@ -1,9 +1,7 @@
 package com.vmcop.simplefour.monanngon;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,6 +13,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class DetailActivity extends Activity {
 	
@@ -28,10 +29,13 @@ public class DetailActivity extends Activity {
     private ImageView imageMonAn;
     
     // ADMOB
-    public static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
-    // 2017/01/06 Commented start
- 	// InterstitialAd mInterstitialAd;
-    // 2017/01/06 Commented end
+    private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
+    private static final int MINUTE_SHOW_AD = 10;//Min number of minutes
+    private final static int LAUNCHES_UNTIL_AD = 3;//Min number of launches
+    private long time_show_ad;
+    private long launch_count;
+    private SharedPreferences prefs;
+    InterstitialAd mInterstitialAd;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,14 +51,13 @@ public class DetailActivity extends Activity {
 			        .build();
         mAdView.loadAd(adRequest);
         */
-		
-		// 2017/01/06 Commented start
-		/*mInterstitialAd = new InterstitialAd(this);
+        prefs = DetailActivity.this.getSharedPreferences("apprater", 0);
+        time_show_ad = prefs.getLong("time_show_ad", 0);
+        launch_count = prefs.getLong("launch_count", 0);
+		mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(INTERSTITIALAD_ID);
         requestNewInterstitial();
 
-
-        
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -62,8 +65,7 @@ public class DetailActivity extends Activity {
                 finish();
             	overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
             }
-        });*/
-        // 2017/01/06 Commented end
+        });
 		
 		new AsyncTask<Void,Void,Void>(){
 			
@@ -113,27 +115,28 @@ public class DetailActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    switch(keyCode){
 	    case KeyEvent.KEYCODE_BACK:
-            // 2017/01/06 modified start
-	    	/*if (mInterstitialAd.isLoaded()) {
+	    	if (mInterstitialAd.isLoaded() && launch_count >= LAUNCHES_UNTIL_AD && (System.currentTimeMillis() >= time_show_ad +
+                    (MINUTE_SHOW_AD * 60 * 1000))) {
                 mInterstitialAd.show();
+
+                time_show_ad = System.currentTimeMillis();
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("time_show_ad", time_show_ad);
+                editor.commit();
+
             } else {
             	finish();
             	overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
-            }*/
-            finish();
-            overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
-            // 2017/01/06 modified end
+            }
 	        return true;
 	    } 
 	    return super.onKeyDown(keyCode, event);
 	}
 
-    // 2017/01/06 Commented start
-	/*private void requestNewInterstitial() {
+	private void requestNewInterstitial() {
 	    AdRequest adRequest = new AdRequest.Builder()
 	              .addTestDevice("91BAF0D14311747AD628F5A5F9629E31")
 	              .build();
 	    mInterstitialAd.loadAd(adRequest);
-	}*/
-    // 2017/01/06 Commented end
+	}
 }
