@@ -30,8 +30,8 @@ public class DetailActivity extends Activity {
     
     // ADMOB
     private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
-    private static final int MINUTE_SHOW_AD = 10;//Min number of minutes
-    private final static int LAUNCHES_UNTIL_AD = 3;//Min number of launches
+    private static final int MINUTE_SHOW_AD = 3;//Min number of minutes
+    private final static int LAUNCHES_UNTIL_AD = 2;//Min number of launches
     private long time_show_ad;
     private long launch_count;
     private SharedPreferences prefs;

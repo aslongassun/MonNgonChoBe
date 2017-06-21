@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
                 Type listType = new TypeToken<ArrayList<BeanPost>>() {
                 }.getType();
                 beanPostArrayList = new GsonBuilder().create().fromJson(Util.loadJSONFromAsset(getAssets()), listType);
-
                 return null;
             }
 
