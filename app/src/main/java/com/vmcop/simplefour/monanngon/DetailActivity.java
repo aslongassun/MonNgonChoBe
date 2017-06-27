@@ -27,6 +27,7 @@ public class DetailActivity extends Activity {
     private TextView cachLamTextView;
     private TextView nguonTextView;
     private ImageView imageMonAn;
+    private TextView tenMonTextView;
     
     // ADMOB
     private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
@@ -77,7 +78,8 @@ public class DetailActivity extends Activity {
         		cachLamTextView = (TextView) findViewById(R.id.cachLamId);
         		nguonTextView = (TextView) findViewById(R.id.nguonTkId);
         		imageMonAn = (ImageView) findViewById(R.id.imageMonan);
-                
+                tenMonTextView = (TextView) findViewById(R.id.tenMonId);
+
         		Bundle bundle = getIntent().getExtras();
         		position  = bundle.getInt("position");
         		
@@ -104,6 +106,7 @@ public class DetailActivity extends Activity {
                 	cachLamTextView.setText(Util.getJSONContent(currentBean.getCach_lam()));
                 	nguonTextView.setText(currentBean.getNguon_tk());
                 	imageMonAn.setImageResource(Util.getImageId(DetailActivity.this, currentBean.getImage_name()));
+                    tenMonTextView.setText(Util.getJSONContent(currentBean.getTitle()));
                 }
             }
             
