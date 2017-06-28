@@ -1,14 +1,18 @@
 package com.vmcop.simplefour.monanngon;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.Context;
 import android.content.res.AssetManager;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Util {
 	public static final String CONS_JSON_PART = "+";
 	public static final String CONS_SHOW_PART = "- ";
+
+	public static final String CONS_FONT_TYPE1_REGULAR = "fonts/YanoneKaffeesatz-Regular.ttf";
+	public static final String CONS_FONT_TYPE2_BOLD = "fonts/DancingScript-Bold.ttf";
+
 	public static String loadJSONFromAsset( AssetManager inAssetManager) {
         String json = null;
         try {
@@ -50,7 +54,19 @@ public class Util {
 		}
 		return resultStr;
 	}
-	
+
+	public static String getTenMon(String inTitle){
+		String[] strArr = inTitle.split(" ");
+		StringBuffer res = new StringBuffer();
+		for (String str : strArr) {
+			char[] stringArray = str.trim().toCharArray();
+			stringArray[0] = Character.toUpperCase(stringArray[0]);
+			str = new String(stringArray);
+			res.append(str).append(" ");
+		}
+		return res.toString().trim();
+	}
+
 	public static Boolean isBlankString(String inString){
 		if(inString != null && !"".endsWith(inString.trim())){
 			return false;

@@ -1,9 +1,7 @@
 package com.vmcop.simplefour.monanngon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +9,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ImageAdapter extends BaseAdapter {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
+    private final Typeface typeface_type2_bold;
 
     public ImageAdapter(Context context, ArrayList<BeanPost> inBeanPostArrayList) {
         mInflater = LayoutInflater.from(context);
-        
+        typeface_type2_bold = Typeface.createFromAsset(mInflater.getContext().getAssets(), Util.CONS_FONT_TYPE2_BOLD);
         for(BeanPost item : inBeanPostArrayList){
-        	mItems.add(new Item(item.getTitle(),Util.getImageId(context, item.getImage_name())));
+        	mItems.add(new Item(Util.getTenMon(item.getTitle()) ,Util.getImageId(context, item.getImage_name())));
         }
-        /*
-        mItems.add(new Item("Red",       R.drawable.sample_0));
-        mItems.add(new Item("Magenta",   R.drawable.sample_1));
-        mItems.add(new Item("Dark Gray", R.drawable.sample_2));
-        mItems.add(new Item("Gray",      R.drawable.sample_3));
-        mItems.add(new Item("Green",     R.drawable.sample_4));
-        mItems.add(new Item("Cyan1",      R.drawable.sample_5));
-        mItems.add(new Item("Cyan2",      R.drawable.sample_6));
-        mItems.add(new Item("Cyan3",      R.drawable.sample_7));
-        mItems.add(new Item("Cyan4",      R.drawable.sample_6));
-        mItems.add(new Item("Cyan5",      R.drawable.sample_5));
-        */
     }
 
     @Override
@@ -64,6 +54,9 @@ public final class ImageAdapter extends BaseAdapter {
 
         picture = (ImageView) v.getTag(R.id.picture);
         name = (TextView) v.getTag(R.id.text);
+        //----FONT---//
+        name.setTypeface(typeface_type2_bold);
+        //-----------//
 
         Item item = getItem(i);
 

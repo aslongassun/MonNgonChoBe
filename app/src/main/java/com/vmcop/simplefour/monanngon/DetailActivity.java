@@ -2,6 +2,7 @@ package com.vmcop.simplefour.monanngon;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -27,7 +28,9 @@ public class DetailActivity extends Activity {
     private TextView cachLamTextView;
     private TextView nguonTextView;
     private ImageView imageMonAn;
-    private TextView tenMonTextView;
+    private TextView labelTitle;
+    private TextView labelNguyenLieu;
+    private TextView labelCachLam;
     
     // ADMOB
     private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
@@ -37,6 +40,9 @@ public class DetailActivity extends Activity {
     private long launch_count;
     private SharedPreferences prefs;
     InterstitialAd mInterstitialAd;
+
+    private Typeface typeface_type1_regular;
+    private Typeface typeface_type2_bold;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,9 @@ public class DetailActivity extends Activity {
 			        .build();
         mAdView.loadAd(adRequest);
         */
+        typeface_type1_regular = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TYPE1_REGULAR);
+        typeface_type2_bold = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TYPE2_BOLD);
+
         prefs = DetailActivity.this.getSharedPreferences("apprater", 0);
         time_show_ad = prefs.getLong("time_show_ad", 0);
         launch_count = prefs.getLong("launch_count", 0);
@@ -73,12 +82,25 @@ public class DetailActivity extends Activity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                
+                // CONTENT
                 nguyenLieuTextView = (TextView) findViewById(R.id.nguyenLieuId);
         		cachLamTextView = (TextView) findViewById(R.id.cachLamId);
         		nguonTextView = (TextView) findViewById(R.id.nguonTkId);
         		imageMonAn = (ImageView) findViewById(R.id.imageMonan);
-                tenMonTextView = (TextView) findViewById(R.id.tenMonId);
+                // HEADER
+                labelTitle = (TextView) findViewById(R.id.tenMonId);
+                labelNguyenLieu = (TextView) findViewById(R.id.lbnguyenlieu);
+                labelCachLam = (TextView) findViewById(R.id.lbcachlam);
+
+                //--- FONT---//
+                nguyenLieuTextView.setTypeface(typeface_type1_regular);
+                cachLamTextView.setTypeface(typeface_type1_regular);
+                nguonTextView.setTypeface(typeface_type1_regular);
+
+                labelTitle.setTypeface(typeface_type2_bold);
+                labelNguyenLieu.setTypeface(typeface_type2_bold);
+                labelCachLam.setTypeface(typeface_type2_bold);
+                //------------//
 
         		Bundle bundle = getIntent().getExtras();
         		position  = bundle.getInt("position");
@@ -106,7 +128,7 @@ public class DetailActivity extends Activity {
                 	cachLamTextView.setText(Util.getJSONContent(currentBean.getCach_lam()));
                 	nguonTextView.setText(currentBean.getNguon_tk());
                 	imageMonAn.setImageResource(Util.getImageId(DetailActivity.this, currentBean.getImage_name()));
-                    tenMonTextView.setText(Util.getJSONContent(currentBean.getTitle()));
+                    labelTitle.setText(Util.getTenMon(currentBean.getTitle()));
                 }
             }
             
@@ -117,21 +139,21 @@ public class DetailActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    switch(keyCode){
-	    case KeyEvent.KEYCODE_BACK:
-	    	if (mInterstitialAd.isLoaded() && launch_count >= LAUNCHES_UNTIL_AD && (System.currentTimeMillis() >= time_show_ad +
-                    (MINUTE_SHOW_AD * 60 * 1000))) {
-                mInterstitialAd.show();
+            case KeyEvent.KEYCODE_BACK:
+                if (mInterstitialAd.isLoaded() && launch_count >= LAUNCHES_UNTIL_AD && (System.currentTimeMillis() >= time_show_ad +
+                        (MINUTE_SHOW_AD * 60 * 1000))) {
+                    mInterstitialAd.show();
 
-                time_show_ad = System.currentTimeMillis();
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putLong("time_show_ad", time_show_ad);
-                editor.commit();
+                    time_show_ad = System.currentTimeMillis();
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putLong("time_show_ad", time_show_ad);
+                    editor.commit();
 
-            } else {
-            	finish();
-            	overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
-            }
-	        return true;
+                } else {
+                    finish();
+                    overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
+                }
+                return true;
 	    } 
 	    return super.onKeyDown(keyCode, event);
 	}
