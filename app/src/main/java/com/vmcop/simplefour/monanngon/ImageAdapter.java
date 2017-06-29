@@ -15,11 +15,11 @@ import java.util.List;
 public final class ImageAdapter extends BaseAdapter {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
-    private final Typeface typeface_type2_bold;
+    private final Typeface typeface_grid_monan;
 
     public ImageAdapter(Context context, ArrayList<BeanPost> inBeanPostArrayList) {
         mInflater = LayoutInflater.from(context);
-        typeface_type2_bold = Typeface.createFromAsset(mInflater.getContext().getAssets(), Util.CONS_FONT_TYPE2_BOLD);
+        typeface_grid_monan = Typeface.createFromAsset(mInflater.getContext().getAssets(), Util.CONS_FONT_GRID_MONAN);
         for(BeanPost item : inBeanPostArrayList){
         	mItems.add(new Item(Util.getTenMon(item.getTitle()) ,Util.getImageId(context, item.getImage_name())));
         }
@@ -55,7 +55,7 @@ public final class ImageAdapter extends BaseAdapter {
         picture = (ImageView) v.getTag(R.id.picture);
         name = (TextView) v.getTag(R.id.text);
         //----FONT---//
-        name.setTypeface(typeface_type2_bold);
+        name.setTypeface(typeface_grid_monan);
         //-----------//
 
         Item item = getItem(i);

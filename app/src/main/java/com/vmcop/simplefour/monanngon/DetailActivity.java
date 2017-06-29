@@ -41,8 +41,9 @@ public class DetailActivity extends Activity {
     private SharedPreferences prefs;
     InterstitialAd mInterstitialAd;
 
-    private Typeface typeface_type1_regular;
-    private Typeface typeface_type2_bold;
+    private Typeface typeface_detail_monan;
+    private Typeface typeface_title_name_monan;
+    private Typeface typeface_title_child_monan;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,9 @@ public class DetailActivity extends Activity {
 			        .build();
         mAdView.loadAd(adRequest);
         */
-        typeface_type1_regular = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TYPE1_REGULAR);
-        typeface_type2_bold = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TYPE2_BOLD);
+        typeface_detail_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_DETAIL_MONAN);
+        typeface_title_name_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TITLE_NAME_MONAN);
+        typeface_title_child_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TTILE_CHILD_MONAN);
 
         prefs = DetailActivity.this.getSharedPreferences("apprater", 0);
         time_show_ad = prefs.getLong("time_show_ad", 0);
@@ -93,13 +95,13 @@ public class DetailActivity extends Activity {
                 labelCachLam = (TextView) findViewById(R.id.lbcachlam);
 
                 //--- FONT---//
-                nguyenLieuTextView.setTypeface(typeface_type1_regular);
-                cachLamTextView.setTypeface(typeface_type1_regular);
-                nguonTextView.setTypeface(typeface_type1_regular);
+                nguyenLieuTextView.setTypeface(typeface_detail_monan);
+                cachLamTextView.setTypeface(typeface_detail_monan);
+                nguonTextView.setTypeface(typeface_detail_monan);
 
-                labelTitle.setTypeface(typeface_type2_bold);
-                labelNguyenLieu.setTypeface(typeface_type2_bold);
-                labelCachLam.setTypeface(typeface_type2_bold);
+                labelTitle.setTypeface(typeface_title_name_monan);
+                labelNguyenLieu.setTypeface(typeface_title_child_monan);
+                labelCachLam.setTypeface(typeface_title_child_monan);
                 //------------//
 
         		Bundle bundle = getIntent().getExtras();
@@ -128,7 +130,7 @@ public class DetailActivity extends Activity {
                 	cachLamTextView.setText(Util.getJSONContent(currentBean.getCach_lam()));
                 	nguonTextView.setText(currentBean.getNguon_tk());
                 	imageMonAn.setImageResource(Util.getImageId(DetailActivity.this, currentBean.getImage_name()));
-                    labelTitle.setText(Util.getTenMon(currentBean.getTitle()));
+                    labelTitle.setText(currentBean.getTitle().toUpperCase());
                 }
             }
             

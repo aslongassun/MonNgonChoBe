@@ -19,8 +19,7 @@
           <!-- Ten Mon -->
           <TextView
               android:id="@+id/tenMonId"
-              style="@style/title"
-              android:fontFamily="casual" />
+              style="@style/title" />
 
           <!-- Nguyen Lieu -->
             <TextView
