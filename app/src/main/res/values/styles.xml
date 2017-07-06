@@ -61,8 +61,20 @@
         <item name="android:layout_gravity">bottom</item>
         <item name="android:lines">2</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:background">#80000000</item>
     </style>
+
+    <!--QUANG CAO THEME transition-->
+    <style name="MyTheme" parent="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@style/MyAnimation.Window</item>
+    </style>
+    <style name="MyAnimation.Window" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/in_left</item>
+    </style>
+
+    <style name="MyAnimation" />
 
 </resources>

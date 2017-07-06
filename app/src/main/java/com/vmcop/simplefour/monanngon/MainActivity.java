@@ -20,17 +20,19 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+    // ADMOB
+    //private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
 
     private ArrayList<BeanPost> beanPostArrayList;
 
     private GridView gridView;
 
+    //private InterstitialAd mInterstitialAd;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -43,12 +45,35 @@ public class MainActivity extends Activity {
                 intent.putExtras(bundle);
 
                 startActivityForResult(intent, 0);
-                //startActivity(intent);
 
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
             }
         });
+
+        // QUANG CAO START
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(INTERSTITIALAD_ID);
+//        requestNewInterstitial();
+//
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                if (mInterstitialAd.isLoaded()) {
+//                    mInterstitialAd.show();
+//                }
+//            }
+//            @Override
+//            public void onAdClosed() {
+//
+//            }
+//            @Override
+//            public void onAdOpened() {}
+//            @Override
+//            public void onAdFailedToLoad(int errorCode) {}
+//
+//        });
+        // QUANG CAO END
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -71,7 +96,6 @@ public class MainActivity extends Activity {
                 if (beanPostArrayList != null) {
                     gridView.setAdapter(new ImageAdapter(MainActivity.this, beanPostArrayList));
                 }
-
             }
 
         }.execute();
@@ -109,4 +133,11 @@ public class MainActivity extends Activity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+//    private void requestNewInterstitial() {
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("91BAF0D14311747AD628F5A5F9629E31")
+//                .build();
+//        mInterstitialAd.loadAd(adRequest);
+//    }
 }

@@ -6,17 +6,23 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import static com.vmcop.simplefour.monanngon.R.id.adView;
+
+//import com.google.android.gms.ads.AdListener;
 
 public class DetailActivity extends Activity {
 	
@@ -35,11 +41,12 @@ public class DetailActivity extends Activity {
     // ADMOB
     private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
     private static final int MINUTE_SHOW_AD = 3;//Min number of minutes
-    private final static int LAUNCHES_UNTIL_AD = 2;//Min number of launches
+    private final static int LAUNCHES_UNTIL_AD = 1;//Min number of launches
     private long time_show_ad;
     private long launch_count;
     private SharedPreferences prefs;
     InterstitialAd mInterstitialAd;
+    private AdView mAdView;
 
     private Typeface typeface_detail_monan;
     private Typeface typeface_title_name_monan;
@@ -51,14 +58,7 @@ public class DetailActivity extends Activity {
 		setContentView(R.layout.screen_detail);
 		
 		//Toast.makeText(DetailActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-		// BANNER
-        /*
-		AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-			        .addTestDevice("91BAF0D14311747AD628F5A5F9629E31")
-			        .build();
-        mAdView.loadAd(adRequest);
-        */
+
         typeface_detail_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_DETAIL_MONAN);
         typeface_title_name_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TITLE_NAME_MONAN);
         typeface_title_child_monan = Typeface.createFromAsset(getAssets(), Util.CONS_FONT_TTILE_CHILD_MONAN);
@@ -66,17 +66,37 @@ public class DetailActivity extends Activity {
         prefs = DetailActivity.this.getSharedPreferences("apprater", 0);
         time_show_ad = prefs.getLong("time_show_ad", 0);
         launch_count = prefs.getLong("launch_count", 0);
-		mInterstitialAd = new InterstitialAd(this);
+
+        // ==========QUANG CAO===========//
+        // BANNER
+        mAdView = (AdView) findViewById(adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("91BAF0D14311747AD628F5A5F9629E31")
+                .build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                mAdView.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAdFailedToLoad(int error) {
+                mAdView.setVisibility(View.GONE);
+            }
+        });
+
+        mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(INTERSTITIALAD_ID);
         requestNewInterstitial();
 
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                requestNewInterstitial();
                 finish();
-            	overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
+                overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
             }
+            @Override
+            public void onAdFailedToLoad(int errorCode) {}
         });
 		
 		new AsyncTask<Void,Void,Void>(){
@@ -142,6 +162,7 @@ public class DetailActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    switch(keyCode){
             case KeyEvent.KEYCODE_BACK:
+                // Code Quang Cao start
                 if (mInterstitialAd.isLoaded() && launch_count >= LAUNCHES_UNTIL_AD && (System.currentTimeMillis() >= time_show_ad +
                         (MINUTE_SHOW_AD * 60 * 1000))) {
                     mInterstitialAd.show();
@@ -150,11 +171,12 @@ public class DetailActivity extends Activity {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putLong("time_show_ad", time_show_ad);
                     editor.commit();
-
-                } else {
+                }
+                else {
                     finish();
                     overridePendingTransition(R.anim.re_slide_in, R.anim.re_slide_out);
                 }
+                // Code Quang Cao end
                 return true;
 	    } 
 	    return super.onKeyDown(keyCode, event);
@@ -166,4 +188,5 @@ public class DetailActivity extends Activity {
 	              .build();
 	    mInterstitialAd.loadAd(adRequest);
 	}
+
 }

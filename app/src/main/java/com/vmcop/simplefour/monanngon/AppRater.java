@@ -14,8 +14,8 @@ public class AppRater {
     private final static String APP_TITLE = "Món Ngon Cho Bé";// App Name
     private final static String APP_PNAME = "com.vmcop.simplefour.monanngon";// Package Name
 
-    private final static int DAYS_UNTIL_PROMPT = 2;//Min number of days
-    private final static int LAUNCHES_UNTIL_PROMPT = 3;//Min number of launches
+    private final static double DAYS_UNTIL_PROMPT = 0.5;//Min number of days
+    private final static int LAUNCHES_UNTIL_PROMPT = 0;//Min number of launches
 
     public static void app_launched(Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);

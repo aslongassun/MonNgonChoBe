@@ -10,8 +10,8 @@ public class Util {
 	public static final String CONS_JSON_PART = "+";
 	public static final String CONS_SHOW_PART = "- ";
 
-	public static final String CONS_FONT_GRID_MONAN = "fonts/Nunito-Bold.ttf";
-	public static final String CONS_FONT_TITLE_NAME_MONAN = "fonts/Nunito-Black.ttf";
+	public static final String CONS_FONT_GRID_MONAN = "fonts/DancingScript-Bold.ttf";
+	public static final String CONS_FONT_TITLE_NAME_MONAN = "fonts/DancingScript-Bold.ttf";
 	public static final String CONS_FONT_TTILE_CHILD_MONAN = "fonts/Nunito-Bold.ttf";
 	public static final String CONS_FONT_DETAIL_MONAN = "fonts/YanoneKaffeesatz-Regular.ttf";
 

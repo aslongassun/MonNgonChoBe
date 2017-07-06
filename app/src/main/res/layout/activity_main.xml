@@ -11,7 +11,7 @@
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
         android:stretchMode="columnWidth"
-        android:scrollbars="none"
+        android:scrollbars="vertical"
         android:drawSelectorOnTop="true"
         android:listSelector="@drawable/my_ripple"
         android:numColumns="2"/>
