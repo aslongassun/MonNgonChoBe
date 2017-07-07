@@ -20,14 +20,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
-    // ADMOB
-    //private static final String  INTERSTITIALAD_ID = "ca-app-pub-8354689046611467/1103219037";
-
     private ArrayList<BeanPost> beanPostArrayList;
-
     private GridView gridView;
-
-    //private InterstitialAd mInterstitialAd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,44 +29,31 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         gridView = (GridView) findViewById(R.id.gridview);
-        gridView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("position", position);
-                intent.putExtras(bundle);
-
-                startActivityForResult(intent, 0);
-
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-
-            }
-        });
 
         // QUANG CAO START
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId(INTERSTITIALAD_ID);
-//        requestNewInterstitial();
-//
-//        mInterstitialAd.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdLoaded() {
-//                if (mInterstitialAd.isLoaded()) {
-//                    mInterstitialAd.show();
-//                }
-//            }
-//            @Override
-//            public void onAdClosed() {
-//
-//            }
-//            @Override
-//            public void onAdOpened() {}
-//            @Override
-//            public void onAdFailedToLoad(int errorCode) {}
-//
-//        });
+        /*
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(INTERSTITIALAD_ID);
+        requestNewInterstitial();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+            @Override
+            public void onAdClosed() {
+
+            }
+            @Override
+            public void onAdOpened() {}
+            @Override
+            public void onAdFailedToLoad(int errorCode) {}
+
+        });
+        */
         // QUANG CAO END
 
         new AsyncTask<Void, Void, Void>() {
@@ -84,8 +65,7 @@ public class MainActivity extends Activity {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                Type listType = new TypeToken<ArrayList<BeanPost>>() {
-                }.getType();
+                Type listType = new TypeToken<ArrayList<BeanPost>>() {}.getType();
                 beanPostArrayList = new GsonBuilder().create().fromJson(Util.loadJSONFromAsset(getAssets()), listType);
                 return null;
             }
@@ -95,11 +75,20 @@ public class MainActivity extends Activity {
                 super.onPostExecute(aVoid);
                 if (beanPostArrayList != null) {
                     gridView.setAdapter(new ImageAdapter(MainActivity.this, beanPostArrayList));
+                    gridView.setOnItemClickListener(new OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View v,
+                                                int position, long id) {
+                            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("position", position);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, 0);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        }
+                    });
                 }
             }
-
         }.execute();
-
     }
 
     @Override
@@ -114,30 +103,19 @@ public class MainActivity extends Activity {
     }
 
     private void showDialog(Context context, String inTitle, String inMessage) {
-        // show a dialog notice no image found
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(inTitle);
         builder.setMessage(inMessage);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-            }
+            public void onClick(DialogInterface dialog, int id) {}
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-//    private void requestNewInterstitial() {
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice("91BAF0D14311747AD628F5A5F9629E31")
-//                .build();
-//        mInterstitialAd.loadAd(adRequest);
-//    }
 }

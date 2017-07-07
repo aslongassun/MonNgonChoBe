@@ -2,9 +2,8 @@
 <ScrollView 
       xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll"
-      android:scrollbars="none"
+      android:id="@+id/scroll"
+      android:scrollbars="vertical"
       android:layout_width="fill_parent"
       android:background="@drawable/background"
       android:layout_height="wrap_content">
@@ -22,18 +21,18 @@
               style="@style/title" />
 
           <!-- Nguyen Lieu -->
-            <TextView
+          <TextView
                 android:id="@+id/lbnguyenlieu"
                 style="@style/header"
                 android:layout_marginTop="5dp"
                 android:text="@string/lb_nguyen_lieu" />
-            <!-- Noi dung Nguyen Lieu -->
-            <TextView
+          <!-- Noi dung Nguyen Lieu -->
+          <TextView
                 android:id="@+id/nguyenLieuId"
                 android:layout_marginBottom="2dp"
                 style="@style/content"/>
 
-            <!--QUANG CAO O DAY-->
+          <!--QUANG CAO O DAY-->
           <com.google.android.gms.ads.AdView
               xmlns:ads="http://schemas.android.com/apk/res-auto"
               android:id="@+id/adView"
@@ -47,18 +46,18 @@
               ads:adUnitId="ca-app-pub-8354689046611467/6738949437">
           </com.google.android.gms.ads.AdView>
 
-            <!-- Cach lam -->
-            <TextView
+          <!-- Cach lam -->
+          <TextView
                 android:id="@+id/lbcachlam"
                 style="@style/header"
                 android:text="@string/lb_cach_lam"/>
-            <!-- Noi dung cach lam -->
-            <TextView
+          <!-- Noi dung cach lam -->
+          <TextView
                 android:id="@+id/cachLamId"
                 style="@style/content"/>
             
-            <!-- Anh minh hoa -->
-            <LinearLayout 
+          <!-- Anh minh hoa -->
+          <LinearLayout
             android:orientation="vertical" 
             android:layout_width="230dp"
             android:layout_height="230dp"
@@ -71,40 +70,16 @@
 	                android:scaleType="fitXY"
 	                android:contentDescription="@string/image_description"
 	                />
-            </LinearLayout>
-            <!-- <ImageView
-		        android:id="@+id/imageMonan"
-		        android:layout_width="230dp"
-		        android:layout_height="230dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-		        android:contentDescription="@string/image_description"
-		        android:background="@drawable/shadow_content_v1"
-		        /> -->
-            <!-- </LinearLayout> -->
+          </LinearLayout>
             
-            <!-- Nguon -->
-            <TextView
+          <!-- Nguon -->
+          <TextView
                 android:id="@+id/nguonTkId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_margin="10dp"
                 android:textSize="@dimen/font_size_content"/>
-            
-            <!-- <LinearLayout
-		        android:orientation="horizontal"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="bottom"
-		        >
-		        <com.google.android.gms.ads.AdView
-		                android:id="@+id/adView"
-		                android:layout_width="match_parent"
-		                android:layout_height="wrap_content"
-		                ads:adSize="SMART_BANNER"
-		                ads:adUnitId="@string/banner_ad_unit_id"/>
-		    </LinearLayout> -->
       
       </LinearLayout>
       

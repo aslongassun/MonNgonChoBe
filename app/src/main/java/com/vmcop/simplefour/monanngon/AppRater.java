@@ -5,16 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AppRater {
     private final static String APP_TITLE = "Món Ngon Cho Bé";// App Name
     private final static String APP_PNAME = "com.vmcop.simplefour.monanngon";// Package Name
 
-    private final static double DAYS_UNTIL_PROMPT = 0.5;//Min number of days
+    private final static double DAYS_UNTIL_PROMPT = 1;//Min number of days
     private final static int LAUNCHES_UNTIL_PROMPT = 0;//Min number of launches
 
     public static void app_launched(Context mContext) {
@@ -46,20 +46,18 @@ public class AppRater {
     }
 
     public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+
         final Dialog dialog = new Dialog(mContext);
         dialog.setTitle("Rate " + APP_TITLE);
+        dialog.setCancelable(false);
+        TextView titleView = (TextView)dialog.findViewById(android.R.id.title);
+        titleView.setGravity(Gravity.CENTER);
 
-        LinearLayout ll = new LinearLayout(mContext);
-        ll.setOrientation(LinearLayout.VERTICAL);
+        dialog.setContentView(R.layout.app_rate);
+        dialog.show();
 
-        TextView tv = new TextView(mContext);
-        tv.setText("Chúng tôi rất mong chờ phản hồi và ý kiến của bạn cho ứng dụng "+APP_TITLE+" !");
-        tv.setPadding(4, 0, 4, 10);
-        ll.addView(tv);
-
-        Button b1 = new Button(mContext);
-        b1.setText("Rate " + APP_TITLE);
-        b1.setOnClickListener(new View.OnClickListener() {
+        Button rateBtnId = (Button)dialog.findViewById(R.id.rateBtnId);
+        rateBtnId.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
                 if (editor != null) {
@@ -69,20 +67,16 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        ll.addView(b1);
 
-        Button b2 = new Button(mContext);
-        b2.setText("Remind me later");
-        b2.setOnClickListener(new View.OnClickListener() {
+        Button rateAfterId = (Button)dialog.findViewById(R.id.rateAfterId);
+        rateAfterId.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        ll.addView(b2);
 
-        Button b3 = new Button(mContext);
-        b3.setText("No, thanks");
-        b3.setOnClickListener(new View.OnClickListener() {
+        Button noRateId = (Button)dialog.findViewById(R.id.noRateId);
+        noRateId.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (editor != null) {
                     editor.putBoolean("dontshowagain", true);
@@ -91,8 +85,6 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        ll.addView(b3);
-        dialog.setContentView(ll);
-        dialog.show();
+
     }
 }

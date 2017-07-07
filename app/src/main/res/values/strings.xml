@@ -6,7 +6,4 @@
     <string name="lb_ten_mon">Tên Món</string>
     <string name="lb_cach_lam">Cách Làm</string>
     <string name="image_description">hinh anh mon an</string>
-
-    <!-- ADMOB -->
-    <string name="banner_ad_unit_id">ca-app-pub-8354689046611467/1157929431</string>
 </resources>

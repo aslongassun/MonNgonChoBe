@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,10 @@ public final class ImageAdapter extends BaseAdapter {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
     private final Typeface typeface_grid_monan;
+    private final Context myContext;
 
     public ImageAdapter(Context context, ArrayList<BeanPost> inBeanPostArrayList) {
+        myContext = context;
         mInflater = LayoutInflater.from(context);
         typeface_grid_monan = Typeface.createFromAsset(mInflater.getContext().getAssets(), Util.CONS_FONT_GRID_MONAN);
         for(BeanPost item : inBeanPostArrayList){
@@ -42,28 +46,28 @@ public final class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View v = view;
+        View myView = view;
         ImageView picture;
         TextView name;
 
-        if (v == null) {
-            v = mInflater.inflate(R.layout.image_item, viewGroup, false);
-            v.setTag(R.id.picture, v.findViewById(R.id.picture));
-            v.setTag(R.id.text, v.findViewById(R.id.text));
+        if (myView == null) {
+            myView = mInflater.inflate(R.layout.image_item, viewGroup, false);
+            myView.setTag(R.id.picture, myView.findViewById(R.id.picture));
+            myView.setTag(R.id.text, myView.findViewById(R.id.text));
         }
 
-        picture = (ImageView) v.getTag(R.id.picture);
-        name = (TextView) v.getTag(R.id.text);
-        //----FONT---//
+        picture = (ImageView) myView.getTag(R.id.picture);
+        name = (TextView) myView.getTag(R.id.text);
         name.setTypeface(typeface_grid_monan);
-        //-----------//
-
         Item item = getItem(i);
-
-        picture.setImageResource(item.drawableId);
         name.setText(item.name);
 
-        return v;
+        //picture.setImageResource(item.drawableId);
+        Glide.with(myContext)
+                .load(item.drawableId)
+                .into(picture);
+
+        return myView;
     }
 
     private static class Item {
