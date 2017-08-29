@@ -13,11 +13,12 @@
             android:orientation="vertical" 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue_tran">
+            android:background="@color/colorTabBackground">
 
           <!-- Ten Mon -->
           <TextView
               android:id="@+id/tenMonId"
+              android:background="@drawable/dotted"
               style="@style/title" />
 
           <!-- Nguyen Lieu -->

@@ -8,4 +8,15 @@
     <color name="my_color_highlight">#FFE99E63</color>
     <color name="my_color_highlight_press">#77E99E63</color>
     <color name="my_color_highlight_focus">#CCE99E63</color>
+
+    <!--TAB-->
+    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
+    <color name="colorTabBackground">#3CB371</color>
+
+
 </resources>
